@@ -1,0 +1,21 @@
+.detail-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.film-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.film-content img {
+    width: 250px;
+    border-radius: 10px;
+}
+
+.film-info {
+    text-align: left;
+    max-width: 500px;
+}

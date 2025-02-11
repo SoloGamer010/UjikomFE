@@ -1,0 +1,21 @@
+/* .logoutB {
+    cursor: pointer;
+    background: none; 
+    border: none; 
+    color: blue; 
+    text-decoration: underline;
+} */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 255, 0.8); 
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    z-index: 1000; 
+}

@@ -1,0 +1,11 @@
+.bungkusFoot {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 255, 0.8); 
+    padding: 10px 20px;
+    text-align: center;
+    color: white;
+    z-index: 1000;
+}

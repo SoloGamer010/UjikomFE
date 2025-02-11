@@ -1,0 +1,49 @@
+.body-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 60px; 
+    margin: 0;
+}
+
+.film-populer {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+}
+
+.film-populer img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.film-lainnya {
+    margin-top: 20px;
+}
+
+.film-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.film-card {
+    width: 200px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    transition: transform 0.3s;
+}
+
+.film-card:hover {
+    transform: scale(1.05);
+}
+
+.film-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
