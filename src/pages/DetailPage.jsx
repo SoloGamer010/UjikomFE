@@ -1,42 +1,68 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import Navbar from "../components/Navbar";
+import "../styles/DP.css";
 
 const DetailPage = () => {
     const { id } = useParams();
     const [film, setFilm] = useState(null);
-    const [loading, setLoading] = useState(true);
-
+    const [saldo, setSaldo] = useState(5000000); 
+    
     useEffect(() => {
         const fetchFilm = async () => {
             try {
-                const response = await axios.get(`http://localhost:3100/film/find/${id}`);
-                setFilm(response.data.data);
+                const response = await fetch(`http://localhost:3100/film/find/${id}`);
+                if (!response.ok) throw new Error("Film not found");
+                const data = await response.json();
+                console.log("Film Data:", data);
+                setFilm(data);
             } catch (error) {
                 console.error("Error fetching film:", error);
-            } finally {
-                setLoading(false);
             }
         };
+
         fetchFilm();
     }, [id]);
 
-    if (loading) return <p>Loading...</p>;
-    if (!film) return <p>Film tidak ditemukan.</p>;
+    if (!film) {
+        return <p>Loading...</p>;
+    }
+
+    // Fungsi untuk membeli film
+    const handlePurchase = () => {
+        if (saldo >= film.data.price) {
+            setSaldo(saldo - film.data.price);
+            alert("Pembelian berhasil! Sisa saldo: Rp " + (saldo - film.data.price));
+        } else {
+            alert("Saldo tidak cukup!");
+        }
+    };
 
     return (
-        <div>
-            <h1>{film.title}</h1>
-            <img src={film.img} alt={film.title} style={{ width: "300px", borderRadius: "10px" }} />
-            <p><strong>Durasi:</strong> {film.duration} menit</p>
-            <p><strong>Genre:</strong> {film.genre || "Tidak tersedia"}</p>
-            <p><strong>Bahasa:</strong> {film.language || "Tidak tersedia"}</p>
-            <p><strong>Actors:</strong> {film.actors?.split(",").join(", ") || "Tidak tersedia"}</p>
-            <p><strong>Producers:</strong> {film.producers || "Tidak tersedia"}</p>
-            <p><strong>Rilis:</strong> {film.release_date || "Tidak tersedia"}</p>
-            <p><strong>Rating:</strong> {film.rating || "Tidak tersedia"}</p>
-            <p><strong>Deskripsi:</strong> {film.description}</p>
-        </div>
+        <>
+            <Navbar />
+            <div className="detail-container">
+                <h1 className="film-title">{film?.data.title || "Judul Tidak Ada"}</h1>
+                <div className="film-content">
+                    <img 
+                        className="film-image" 
+                        src={`${film.data.img}`} 
+                        alt={film?.title || "Gambar Tidak Ada"} 
+                    />
+                    <div className="film-details">
+                        <p><strong>Durasi:</strong> {film?.data.duration || "Tidak ada data"} menit</p>
+                        <p><strong>Genre:</strong> {film?.data.genre || "Tidak ada data"}</p>
+                        <p><strong>Bahasa:</strong> {film?.data.language || "Tidak ada data"}</p>
+                        <p><strong>Actors:</strong> {film?.data.actors || "Tidak ada data"}</p>
+                        <p><strong>Produser:</strong> {film?.data.producers || "Tidak ada data"}</p>
+                        <p><strong>Deskripsi:</strong> {film?.data.description || "Tidak ada data"}</p>
+                        <p><strong>Harga:</strong> Rp {film?.data.price || 0}</p>
+                        <p><strong>Saldo Anda:</strong> Rp {saldo}</p>
+                        <button className="buy-button" onClick={handlePurchase}>Beli Film</button>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 };
 

@@ -1,21 +1,39 @@
+/* Styling container utama */
 .detail-container {
-    padding: 20px;
     text-align: center;
+    padding: 80px 20px 20px; /* Tambah padding agar tidak tertutup navbar */
 }
 
+/* Judul film */
+.film-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Layout film (gambar + detail) */
 .film-content {
     display: flex;
-    align-items: center;
     justify-content: center;
-    gap: 20px;
+    align-items: flex-start;
+    gap: 30px;
+    max-width: 900px;
+    margin: auto;
 }
 
-.film-content img {
-    width: 250px;
+/* Gaya gambar film */
+.film-image {
+    width: 320px;
+    height: 500px;
     border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-.film-info {
+/* Detail film */
+.film-details {
     text-align: left;
     max-width: 500px;
+}
+
+.film-details p {
+    margin: 5px 0;
 }

@@ -7,6 +7,8 @@ const Body = () => {
     const [filmPopuler, setFilmPopuler] = useState(null);
     const [filmLainnya, setFilmLainnya] = useState([]);
 
+    const images = import.meta.glob("../assets/img/*", { eager: true });
+
     useEffect(() => {
         const fetchFilms = async () => {
             try {
@@ -14,8 +16,8 @@ const Body = () => {
                 const allFilms = response.data.data;
 
                 if (allFilms.length > 0) {
-                    setFilmPopuler(allFilms[0]); // Film pertama sebagai film populer
-                    setFilmLainnya(allFilms.slice(1)); // Film lainnya
+                    setFilmPopuler(allFilms[0]); 
+                    setFilmLainnya(allFilms.slice(1)); 
                 }
             } catch (error) {
                 console.error("Gagal mengambil data film", error);
@@ -32,7 +34,10 @@ const Body = () => {
                 <div className="film-populer">
                     <h2>Film Populer</h2>
                     <Link to={`/film/${filmPopuler.id}`} className="film-card">
-                        <img src={filmPopuler.img} alt={filmPopuler.title} />
+                        <img 
+                            src={images[`${filmPopuler.id}`]?.default || "/placeholder.jpg"} 
+                            alt={filmPopuler.title} 
+                        />
                         <h3>{filmPopuler.title}</h3>
                         <p>Durasi: {filmPopuler.duration} menit</p>
                     </Link>
@@ -46,9 +51,12 @@ const Body = () => {
                     {filmLainnya.length > 0 ? (
                         filmLainnya.map((film) => (
                             <Link to={`/film/${film.id}`} key={film.id} className="film-card">
-                                <img src={film.img} alt={film.title} />
+                                <img 
+                                    src={images[`../assets/img/${film.img}`]?.default || "/placeholder.jpg"} 
+                                    alt={film.title} 
+                                />
                                 <p>{film.title}</p>
-                                {/* <p>Durasi: {filmLainnya.duration} menit</p> */}
+                                <p>Durasi: {film.duration} menit</p>
                             </Link>
                         ))
                     ) : (
